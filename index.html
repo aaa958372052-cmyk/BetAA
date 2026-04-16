@@ -19,10 +19,9 @@ s.parentNode.insertBefore(t,s)
 /* ✅ 初始化 */
 fbq('init', '1254462006400012');
 
-/* ✅ 页面加载完成再触发 */
-window.onload = function() {
-  fbq('track', 'PageView');
-}
+// ✅ 页面加载就触发
+fbq('track', 'PageView');
+console.log('PageView sent');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1254462006400012&ev=PageView&noscript=1"
@@ -125,13 +124,26 @@ Only new users can unlock this reward today
 
 <script>
 function goRegister(){
-  fbq('track','Lead');
 
-  setTimeout(function(){
+  // 👉 确保 Pixel 已加载
+  if (typeof fbq !== 'undefined') {
+
+    fbq('track', 'Lead');
+
+    console.log('Lead sent');
+
+    // 👉 等1.5秒再跳（非常关键）
+    setTimeout(function(){
+      window.location.href="https://app.betaa1ad.com/?cid=1359477";
+    }, 1500);
+
+  } else {
+    // 👉 如果Pixel没加载，直接跳（兜底）
     window.location.href="https://app.betaa1ad.com/?cid=1359477";
-  }, 500);
+  }
+
 }
 </script>
-
+  
 </body>
 </html>
